@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as BooksAPI from './utils/BooksAPI';
-import Book from './Book';
+import Home from './Home';
+import { Route } from 'react-router-dom';
+import SearchBook from './SearchBook';
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
+      // Set the shelf state for each returned book
       for (let i in books) {
         if (books[i].shelf === 'currentlyReading') {
           this.state.shelf.currentlyReading.push(books[i].id);
@@ -34,39 +36,38 @@ class App extends Component {
     })
   }
 
-  
+  update = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(books => {
+      this.setState({ shelf: books});
+      BooksAPI.getAll().then((book) => {
+        this.setState({ books: book});
+      });
+    })
+  }
 
-  
-  
   render() {
     return (
-      <div className="App">
-        <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                          <Book />
-                          <div className="book-title">To Kill a Mockingbird</div>
-                          <div className="book-authors">Harper Lee</div>
-                        
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
+      <div>
+        
+        <Route exact path="/" render={() =>
+          <Home
+           books={this.state.books}
+           updateBook={ this.update }
+           />
+        } />
+        <Route path="/searchbook"  render={() =>(
+        <SearchBook
+         books={this.state.books }
+         shelves={this.state.shelf}
+         updateBook={(book, shelf) =>{
+           this.update(book, shelf)
+        }}
+          />)}
+        />
         
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
