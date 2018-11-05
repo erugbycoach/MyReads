@@ -19,6 +19,7 @@ class SearchBook extends Component{
           this.checkShelf(searchResult);
           this.setState({results: searchResult});
         }
+        // Create a catch to reset results array in case of error
         return searchResult;
         }).catch(() =>{
           this.setState({results: []});
