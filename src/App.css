@@ -121,13 +121,16 @@ body, .app {
 
 .book {
   width: 140px;
+  
 }
 .book-title,
 .book-authors {
   font-size: 0.8em;
+  text-align: center;
 }
 .book-title {
   margin-top: 10px;
+  
 }
 .book-authors {
   color: #999;

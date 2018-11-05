@@ -31,9 +31,16 @@ class Book extends Component {
                     <option value="read">Read</option>
                     <option value="none">None</option>
                     </select>
-                
+                    
                 </div>
                 </div>
+                {/* map the authors to display on multiple lines for easier viewing */}
+                <div className="book-title">{this.props.book.title}</div>
+                {this.props.book.authors && this.props.book.authors.map((author, index) => (
+                    <div className="book-authors" key={index}>
+                        {author}
+                    </div>
+                ))}
             </div>
         )
     }

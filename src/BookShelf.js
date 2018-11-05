@@ -30,12 +30,6 @@ class BookShelf extends Component {
                                             updateBook={this.props.updateBook}
                                         />
                                         
-                                        <p className='book-title'>
-                                        {book.title}
-                                        </p>
-                                        <p className='book-title'>
-                                        {book.authors}
-                                        </p>
                                     </li>
                                     
                                 )}
