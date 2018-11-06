@@ -11,7 +11,7 @@ const Home = props => {
         <div>
           <div className="list-books">
             <div className="list-books-title">
-              <h1>MyReads</h1>
+              <h1>My Reads Bookshelf</h1>
             </div>
           </div>
             <BookShelf books={props.books}
