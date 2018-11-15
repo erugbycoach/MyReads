@@ -11,7 +11,8 @@ class SearchBook extends Component{
   }
 
   updateSearch = (search="") => {
-    this.setState({ search: search.trim() });
+    // remove .trim() from state to allow spaces in titles
+    this.setState({ search: search });
       BooksAPI.search(search, 50).then(searchResult => {
         if(!searchResult){
          this.setState({results: []});
@@ -26,6 +27,7 @@ class SearchBook extends Component{
         })
 }
 
+  
   checkShelf = (searchResults) => {
     for(let i in searchResults){
       if((this.props.shelves.currentlyReading.indexOf(searchResults[i].id)) > -1){
@@ -50,7 +52,7 @@ class SearchBook extends Component{
           <Link className="close-search" to="/">Close</Link>
           <div className="search-books-input-wrapper">
             <input type="text"
-               id='searchText'
+               
                placeholder="Search by title or author"
                value={this.state.search}
                onChange={(event) => this.updateSearch(event.target.value)}/>
